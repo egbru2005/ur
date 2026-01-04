@@ -4,7 +4,7 @@
 
 import { Cell, GameState, Player, PlayerChips, Position } from './types';
 import { Audio } from 'expo-av';
-
+import { Vibration, Platform } from 'react-native';
 
 // Количество клеток в пути каждого игрока
 export const PATH_LENGTH = 14;
@@ -113,13 +113,20 @@ async function playRollSound() {
   await sound.playAsync();
 }
 
+function vibrateDevice(){
+  if (Platform.OS === 'ios') {
+    Vibration.vibrate(100);
+  } else {
+    Vibration.vibrate();
+  }
+}
 /**
  * Бросок 4 тетраэдральных костей
  * Каждая кость дает 0 или 1 с вероятностью 50/50
  * Результат = сумма (0-4)
  */
 export const rollDice = (): number => {
-
+  vibrateDevice();
   playRollSound();
   let sum = 0;
   for (let i = 0; i < 4; i++) {
