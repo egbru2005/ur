@@ -3,6 +3,8 @@
  */
 
 import { Cell, GameState, Player, PlayerChips, Position } from './types';
+import { Audio } from 'expo-av';
+
 
 // Количество клеток в пути каждого игрока
 export const PATH_LENGTH = 14;
@@ -105,12 +107,20 @@ export const initializeBoard = (): Cell[][] => {
   return board;
 };
 
+async function playRollSound() {
+  const sound = new Audio.Sound();
+  await sound.loadAsync(require('../assets/dice.mp3'));
+  await sound.playAsync();
+}
+
 /**
  * Бросок 4 тетраэдральных костей
  * Каждая кость дает 0 или 1 с вероятностью 50/50
  * Результат = сумма (0-4)
  */
 export const rollDice = (): number => {
+
+  playRollSound();
   let sum = 0;
   for (let i = 0; i < 4; i++) {
     sum += Math.random() < 0.5 ? 0 : 1;
