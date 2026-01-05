@@ -108,16 +108,28 @@ export const initializeBoard = (): Cell[][] => {
 };
 
 async function playRollSound() {
-  const sound = new Audio.Sound();
-  await sound.loadAsync(require('../assets/dice.mp3'));
-  await sound.playAsync();
+  try {
+    const sound = new Audio.Sound();
+    await sound.loadAsync(require('../assets/dice.mp3'));
+    await sound.playAsync();
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Sound error:', error);
+    }
+  }
 }
 
 function vibrateDevice(){
-  if (Platform.OS === 'ios') {
-    Vibration.vibrate(100);
-  } else {
-    Vibration.vibrate();
+  try {
+    if (Platform.OS === 'ios') {
+      Vibration.vibrate(100);
+    } else {
+      Vibration.vibrate();
+    }
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'test') {
+      console.error('Vibration error:', error);
+    }
   }
 }
 /**
