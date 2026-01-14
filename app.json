@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1a1a2e"
-      }
+      },
+      "package": "com.mallrad.royalgameofur"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "373b4475-c759-44ec-beef-1de006e72172"
+      }
     }
   }
 }
